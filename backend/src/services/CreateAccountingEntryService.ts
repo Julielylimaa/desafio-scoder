@@ -15,9 +15,12 @@ export class CreateAccountingEntry {
         if (!userId) {
             return response.status(400).json({ error: "User ID is required." });
         }
+
+        const [day, month, year] = date.toString().split('/');
+        const formattedDate = new Date(`${year}-${month}-${day}`);
         const accountingEntry = await prisma.accountingEntry.create({
             data: {
-                date,
+                date: formattedDate,
                 userId,
                 description,
                 value,
