@@ -3,7 +3,6 @@ import { RegisterUser } from "../services/RegisterUserService";
 
 export class RegisterUserController {
     async handle(request: Request, response: Response) {
-
         const { name, email, password } = request.body;
 
         if (!name || !email || !password) {

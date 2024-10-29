@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken"
-import { secret } from "../services/AuthenticateUserService";
 
 interface IPayload {
     sub: string
@@ -14,11 +13,15 @@ export async function checkAuthenticate(request: Request, response: Response, ne
         })
     }
 
-    //split do token
+
     const [, token] = authHeader.split(" ")
 
+    if (!process.env.JWT_SECRET) {
+        throw new Error("Secret not set.")
+    }
+
     try {
-        const { sub } = verify(token, secret) as IPayload
+        const { sub } = verify(token, process.env.JWT_SECRET) as IPayload
         request.userId = sub;
 
         return next()

@@ -8,7 +8,6 @@ interface IRegisterUser {
 
 export class RegisterUser {
     async execute({ name, email, password }: IRegisterUser) {
-        //validar
 
         const userExist = await prisma.user.findFirst({
             where: {
@@ -22,10 +21,9 @@ export class RegisterUser {
         if (userExist) {
             throw new Error("User already exists.")
         }
-        //Criptografar
 
         const hashPassword = await hash(password, 10)
-        //Salvar
+
         const user = await prisma.user.create({
             data: {
                 name,

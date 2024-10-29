@@ -1,8 +1,9 @@
 import { prisma } from "../../prisma/prismaClient";
 
 export class FindAccountingEntries {
-    async execute(id: string, date: string, page: number, pageSize: number) {
+    async execute(id: string, date: string, page: number = 1, pageSize: number = 10) {
         const [month, year] = date.split('/').map(Number)
+
         const skip = (page - 1) * pageSize
 
         const groupEntriesByType = await prisma.accountingEntry.groupBy({
@@ -21,8 +22,8 @@ export class FindAccountingEntries {
             }
         })
 
-        const totalCreditValue = groupEntriesByType.find(group => group.type === 'Credit')?._sum.value
-        const totalDebitValue = groupEntriesByType.find(group => group.type === 'Debit')?._sum.value
+        const totalCreditValue = groupEntriesByType.find(group => group.type === 'Credit')?._sum.value || 0
+        const totalDebitValue = groupEntriesByType.find(group => group.type === 'Debit')?._sum.value || 0
 
         const entries = await prisma.accountingEntry.findMany({
             where: {
@@ -40,9 +41,7 @@ export class FindAccountingEntries {
                 date: 'desc',
             }
         })
-        if (entries.length === 0) {
-            return { message: "No data available for this date." }
-        }
+
 
 
         return { entries, totalCreditValue, totalDebitValue }

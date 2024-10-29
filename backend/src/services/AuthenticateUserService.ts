@@ -8,11 +8,11 @@ interface IAuthenticateUser {
     email: string,
     password: string
 }
-export const secret = process.env.JWT_SECRET || "123";
+
 
 export class AuthenticateUserService {
     async execute({ email, password }: IAuthenticateUser) {
-        //verificar se cadastrado
+
         const user = await prisma.user.findFirst({
             where: {
                 email
@@ -22,14 +22,18 @@ export class AuthenticateUserService {
         if (!user) {
             throw new Error("Email or Password invalid!")
         }
-        //verificar senha email
+
         const passwordMatch = await compare(password, user.password)
 
         if (!passwordMatch) {
             throw new Error("Email or Password invalid!")
         }
-        //gerar token
-        const token = sign({ email }, secret, {
+
+
+        if (!process.env.JWT_SECRET) {
+            throw new Error("Secret not set.")
+        }
+        const token = sign({ email }, process.env.JWT_SECRET, {
             subject: user.id,
             expiresIn: '1d'
         })
