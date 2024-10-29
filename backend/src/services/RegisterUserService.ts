@@ -1,5 +1,4 @@
-import { response } from "express";
-import { prisma } from "../database/prismaClient";
+import { prisma } from "../../prisma/prismaClient";
 import { hash } from "bcrypt"
 interface IRegisterUser {
     name: string;
@@ -14,6 +13,7 @@ export class RegisterUser {
         const userExist = await prisma.user.findFirst({
             where: {
                 email: {
+                    equals: email,
                     mode: "insensitive"
                 }
             }
