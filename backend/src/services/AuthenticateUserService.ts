@@ -37,12 +37,8 @@ export class AuthenticateUserService {
             subject: user.id,
             expiresIn: '1d'
         })
-        const data = {
-            id: user.id,
-            email: user.email,
-            token
-        }
 
-        return data;
+
+        return token;
     }
 }

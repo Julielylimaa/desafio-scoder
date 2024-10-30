@@ -31,7 +31,7 @@ export class RegisterUser {
                 password: hashPassword,
             }
         })
-        return user;
+        return { message: "User registered successfully." };
     }
 
 
