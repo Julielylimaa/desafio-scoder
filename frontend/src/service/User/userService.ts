@@ -1,5 +1,6 @@
 import { api } from "../axios";
 
+
 export const handleLogin = async (email: string, password: string) => {
     try {
         const resp = await api.post("login", {
@@ -10,7 +11,7 @@ export const handleLogin = async (email: string, password: string) => {
         return true
     } catch (err) {
         console.log(err)
-        alert("Algo deu errado!")
+        alert("E-mail ou senha incorretos!")
         return err;
     }
 }
@@ -25,9 +26,11 @@ export const handleRegister = async (name: string, email: string, password: stri
             })
             .then((resp) => {
                 console.log(resp.data);
+                alert("Usuário cadastrado!")
                 localStorage.setItem("token", resp.data.token);
             });
     } catch (err) {
+        alert("Ocorreu um erro!")
         console.log(err);
     }
 }

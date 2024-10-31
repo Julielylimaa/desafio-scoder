@@ -1,8 +1,11 @@
 import { prisma } from "../../prisma/prismaClient";
 
 export class FindAccountingEntries {
-    async execute(id: string, date: string, page: number = 1, pageSize: number = 10) {
-        const [month, year] = date.split('/').map(Number)
+    async execute(id: string, date: string, page: number, pageSize: number) {
+        console.log("date: ", date)
+        console.log(pageSize)
+        const [month, year] = date.toString().split('-').map(Number)
+        console.log("mes e ano: ", month, year)
 
         const skip = (page - 1) * pageSize
 

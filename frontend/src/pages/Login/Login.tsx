@@ -15,7 +15,6 @@ export const Login = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const auth = await handleLogin(email, password);
-    console.log(auth);
     if (auth === true) {
       navigate("/accountingrecords");
     }

@@ -3,10 +3,9 @@ import theme from "../../styles/theme";
 
 export const Container = styled.div`
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+
 `
 export const Label = styled.label`
     margin-bottom: 0.2rem;

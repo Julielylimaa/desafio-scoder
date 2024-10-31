@@ -1,42 +1,31 @@
-import { useState } from "react";
+import { ReactNode } from "react";
 import { Container, MonthYearInput, Label } from "./styles";
 
-export const DateInputComponent = () => {
-  const currentYear = new Date().getFullYear();
-  const months = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ];
+interface Props {
+  label: string;
+  id: string;
+  month?: string;
+  year?: number;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  children: ReactNode;
+}
 
-  const [month, setMonth] = useState(months[0]);
-  const [year, setYear] = useState(currentYear);
-
+export const DateInputComponent = ({
+  label,
+  id,
+  month,
+  year,
+  onChange,
+  children,
+}: Props) => {
   return (
     <Container>
-      <Label htmlFor="month">Mes:</Label>
-      <MonthYearInput
-        id="month"
-        value={month}
-        onChange={(e) => setMonth(e.target.value)}
-      >
-        {months.map((m, index) => (
-          <option key={index} value={m}>
-            {m}
-          </option>
-        ))}
+      <Label htmlFor={id}>{label}</Label>
+      <MonthYearInput id={id} value={month || year} onChange={onChange}>
+        {children}
       </MonthYearInput>
 
-      <Label htmlFor="year">Ano:</Label>
+      {/* <Label htmlFor="year">Ano:</Label>
       <MonthYearInput
         id="year"
         value={year}
@@ -49,7 +38,7 @@ export const DateInputComponent = () => {
             {currentYear - index}
           </option>
         ))}
-      </MonthYearInput>
+      </MonthYearInput> */}
     </Container>
   );
 };

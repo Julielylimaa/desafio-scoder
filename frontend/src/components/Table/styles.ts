@@ -6,6 +6,14 @@ export const Container = styled.div`
     margin: 4rem auto 0;
     padding-top: 5rem;
 `
+
+export const SelectDateContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+`
 export const Table = styled.table`
     width: 100%;
     border-collapse: separate;
