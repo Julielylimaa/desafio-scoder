@@ -14,7 +14,11 @@ export const Login = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    handleLogin(email, password);
+    const auth = await handleLogin(email, password);
+    console.log(auth);
+    if (auth === true) {
+      navigate("/accountingrecords");
+    }
   };
 
   return (

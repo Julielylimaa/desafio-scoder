@@ -2,15 +2,12 @@ import { api } from "../axios";
 
 export const handleLogin = async (email: string, password: string) => {
     try {
-        await api
-            .post("login", {
-                email,
-                password,
-            })
-            .then((resp) => {
-                localStorage.setItem("token", resp.data);
-                return true
-            });
+        const resp = await api.post("login", {
+            email,
+            password,
+        })
+        localStorage.setItem("token", resp.data);
+        return true
     } catch (err) {
         console.log(err)
         alert("Algo deu errado!")
