@@ -3,16 +3,24 @@ import { Input } from "../../components/Form/Input/Input";
 import { Button } from "../../components/Form/Button/Button";
 import { ImageBox } from "../../components/ImageBox/ImageBox";
 import { useNavigate } from "react-router";
+import { FormEvent, useState } from "react";
+import { handleRegister } from "../../service/User/userService";
 
-const handleSubmit = () => {
-  console.log("Submited");
-};
 export const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    handleRegister(name, email, password);
+  };
   return (
     <Container>
       <ImageBox>
-        <RegisterForms>
+        <RegisterForms onSubmit={handleSubmit}>
           <Title>Crie sua conta</Title>
           <Input
             label="Nome completo"
@@ -20,6 +28,8 @@ export const Register = () => {
             name="name"
             type="text"
             required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           ></Input>
           <Input
             label="E-mail"
@@ -27,6 +37,8 @@ export const Register = () => {
             name="email"
             type="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           ></Input>
           <Input
             label="Senha"
@@ -34,8 +46,10 @@ export const Register = () => {
             name="senha"
             type="password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></Input>
-          <Button text="Cadastrar" onClick={handleSubmit} />
+          <Button text="Cadastrar" />
 
           <Text>
             Já possui uma conta?{" "}

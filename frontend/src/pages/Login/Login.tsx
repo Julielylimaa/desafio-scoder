@@ -3,16 +3,24 @@ import { Input } from "../../components/Form/Input/Input";
 import { Button } from "../../components/Form/Button/Button";
 import { ImageBox } from "../../components/ImageBox/ImageBox";
 import { useNavigate } from "react-router";
+import { FormEvent, useState } from "react";
+import { handleLogin } from "../../service/User/userService";
 
-const handleSubmit = () => {
-  console.log("Submited");
-};
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    handleLogin(email, password);
+  };
+
   return (
     <Container>
       <ImageBox>
-        <LoginForms>
+        <LoginForms onSubmit={handleSubmit}>
           <Title>Acesse sua conta</Title>
           <Input
             label="E-mail"
@@ -20,6 +28,8 @@ export const Login = () => {
             name="email"
             type="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           ></Input>
           <Input
             label="Senha"
@@ -27,8 +37,10 @@ export const Login = () => {
             name="senha"
             type="password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           ></Input>
-          <Button text="Entrar" onClick={handleSubmit} />
+          <Button text="Entrar" />
           <Text>
             Ainda nao tem uma conta?{" "}
             <BtnRegister onClick={() => navigate("/register")}>

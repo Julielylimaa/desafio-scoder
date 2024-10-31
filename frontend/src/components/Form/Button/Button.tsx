@@ -1,7 +1,7 @@
 import { Btn, BtnContainer } from "./styles";
 interface Props {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 export const Button = ({ text, onClick }: Props) => {
   return (
