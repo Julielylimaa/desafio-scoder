@@ -28,7 +28,7 @@ export const Login = () => {
           <Input
             label="E-mail"
             placeholder="Entre com seu e-mail"
-            name="email"
+            id="email"
             type="email"
             required
             value={email}
@@ -37,7 +37,7 @@ export const Login = () => {
           <Input
             label="Senha"
             placeholder="Digite sua senha"
-            name="senha"
+            id="senha"
             type="password"
             required
             value={password}

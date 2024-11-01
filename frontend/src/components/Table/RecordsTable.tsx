@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
-import { DateInputComponent } from "../DateInput/DateInput";
+import { DateSelect } from "../DateSelect/DateSelect";
 import {
   Container,
+  DateBtnContainer,
+  Message,
+  MessageContainer,
   SelectDateContainer,
   Table,
   TBody,
   Td,
+  Th,
+  THead,
+  TotalBoxContainer,
   Tr,
   ValueHighLight,
 } from "./styles";
 import { getAccountingRecords } from "../../service/AccountingEntry/accountingService";
 import { Pagination } from "../Pagination/Pagination";
+import { TotalBox } from "../TotalBox/TotalBox";
+
+import { Modal } from "../AddRecordModal/Modal";
 
 type Entries = {
   id: string;
@@ -21,23 +30,22 @@ type Entries = {
   createdAt: string;
   userId: string;
 };
-
+const months = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
+];
 export const RecordsTable = () => {
   const currentYear = new Date().getFullYear();
-  const months = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ];
 
   const [monthIndex, setMonthIndex] = useState(0);
   const [month, setMonth] = useState(months[0]);
@@ -69,7 +77,6 @@ export const RecordsTable = () => {
           setEntries(entries);
           setTotalCredit(totalCredit);
           setTotalDebit(totalDebit);
-          console.log(entries, totalCredit, totalDebit);
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -80,56 +87,80 @@ export const RecordsTable = () => {
 
   return (
     <Container>
-      <SelectDateContainer>
-        <DateInputComponent
-          id="month"
-          month={month}
-          onChange={(e) => {
-            setMonth(e.target.value);
-            setMonthIndex(e.target.selectedIndex);
-          }}
-        >
-          {months.map((m, index) => (
-            <option key={index} value={m}>
-              {m}
-            </option>
-          ))}
-        </DateInputComponent>
-        <DateInputComponent
-          id="year"
-          year={year}
-          onChange={(e) => setYear(Number(e.target.value))}
-        >
-          {[...Array(10)].map((_, index) => (
-            <option key={currentYear - index} value={currentYear - index}>
-              {currentYear - index}
-            </option>
-          ))}
-        </DateInputComponent>
-      </SelectDateContainer>
+      <TotalBoxContainer>
+        <TotalBox title="Crédito" total={totalCredit || 0}></TotalBox>
+        <TotalBox title="Débito" total={totalDebit || 0}></TotalBox>
+      </TotalBoxContainer>
 
-      <Table>
-        <TBody>
-          {entries.map((entry) => (
-            <Tr key={entry.id}>
-              <Td>{new Date(entry.date).toLocaleDateString("pt-BR")}</Td>
-              <Td>Pagamento</Td>
-              <Td>
-                <ValueHighLight variant={entry.type}>
-                  R$ {entry.value.toFixed(2)}
-                </ValueHighLight>
-              </Td>
-              <Td>{entry.type}</Td>
-            </Tr>
-          ))}
-        </TBody>
-      </Table>
-      <Pagination
-        totalItems={totalEntries || 0}
-        itemsPerPage={pageSize}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      <DateBtnContainer>
+        <SelectDateContainer>
+          <DateSelect
+            id="month"
+            value={month}
+            onChange={(e) => {
+              setMonth(e.target.value);
+              setMonthIndex(e.target.selectedIndex);
+            }}
+          >
+            {months.map((m, index) => (
+              <option key={index} value={m}>
+                {m}
+              </option>
+            ))}
+          </DateSelect>
+          <DateSelect
+            id="year"
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+          >
+            {[...Array(10)].map((_, index) => (
+              <option key={currentYear - index} value={currentYear - index}>
+                {currentYear - index}
+              </option>
+            ))}
+          </DateSelect>
+        </SelectDateContainer>
+        <Modal></Modal>
+      </DateBtnContainer>
+
+      {entries.length === 0 ? (
+        <MessageContainer>
+          <Message>Não há dados disponiveis para essa data!</Message>
+        </MessageContainer>
+      ) : (
+        <>
+          <Table>
+            <THead>
+              <Tr>
+                <Th>Data</Th>
+                <Th>Descrição</Th>
+                <Th>Valor</Th>
+                <Th>Tipo</Th>
+              </Tr>
+            </THead>
+            <TBody>
+              {entries.map((entry) => (
+                <Tr key={entry.id}>
+                  <Td>{new Date(entry.date).toLocaleDateString("pt-BR")}</Td>
+                  <Td>{entry.description}</Td>
+                  <Td>
+                    <ValueHighLight variant={entry.type}>
+                      R$ {entry.value.toFixed(2)}
+                    </ValueHighLight>
+                  </Td>
+                  <Td>{entry.type}</Td>
+                </Tr>
+              ))}
+            </TBody>
+          </Table>
+          <Pagination
+            totalItems={totalEntries || 0}
+            itemsPerPage={pageSize}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </>
+      )}
     </Container>
   );
 };

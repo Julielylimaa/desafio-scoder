@@ -1,9 +1,12 @@
-import { Container, Title } from "./styles";
+import { Container, Title, Text, TextContainer } from "./styles";
 
 export function Header() {
   return (
     <Container>
-      <Title>Contabilidade Eficiente</Title>
+      <TextContainer>
+        <Title>Pagamentos</Title>
+        <Text> Visualize aqui os dados de pagamento da empresa</Text>
+      </TextContainer>
     </Container>
   );
 }

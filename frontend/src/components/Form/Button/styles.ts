@@ -15,4 +15,8 @@ export const Btn = styled.button`
     border: 1px solid transparent ;
     border-radius: 2px; 
     font-size: ${theme.FONT_SIZE.MD};
+    cursor: pointer;
+    &:hover{
+        background-color: ${theme.COLORS.LIGHT_GREEN};
+    }
 `

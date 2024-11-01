@@ -2,9 +2,9 @@ import styled from "styled-components";
 import theme from "../../../styles/theme";
 
 export const InputContainer = styled.div`
-  margin-top: 15px;
+   margin-top: 15px;
   width: 70%;
-  
+ 
 `
 export const InputStyle = styled.input`
     height: 40px;

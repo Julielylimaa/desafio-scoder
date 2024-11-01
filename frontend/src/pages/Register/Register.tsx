@@ -25,7 +25,7 @@ export const Register = () => {
           <Input
             label="Nome completo"
             placeholder="Digite seu nome"
-            name="name"
+            id="name"
             type="text"
             required
             value={name}
@@ -34,7 +34,7 @@ export const Register = () => {
           <Input
             label="E-mail"
             placeholder="Digite seu e-mail"
-            name="email"
+            id="email"
             type="email"
             required
             value={email}
@@ -43,7 +43,7 @@ export const Register = () => {
           <Input
             label="Senha"
             placeholder="Crie sua senha"
-            name="senha"
+            id="senha"
             type="password"
             required
             value={password}

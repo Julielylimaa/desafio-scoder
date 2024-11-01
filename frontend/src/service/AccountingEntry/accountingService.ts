@@ -38,3 +38,22 @@ export const getAccountingRecords = async (date: string,
         return null;
     }
 }
+
+export const handleNewEntry = async (date: string, description: string, value: number, type: "Credit" | "Debit") => {
+    try {
+        await api
+            .post("accounting/", {
+                date,
+                description,
+                value,
+                type,
+            })
+            .then((resp) => {
+                console.log(resp.data);
+                alert("Novo registro cadastrado!")
+            });
+    } catch (err) {
+        alert("Ocorreu um erro!")
+        console.log(err);
+    }
+}

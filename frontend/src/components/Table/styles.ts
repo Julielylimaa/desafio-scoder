@@ -6,44 +6,102 @@ export const Container = styled.div`
     margin: 4rem auto 0;
     padding-top: 5rem;
 `
+export const TotalBoxContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+`
+export const DateBtnContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`
+
 
 export const SelectDateContainer = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
+    gap: 0.6rem;
+    width: 30%;
+`
+
+export const MessageContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+`
+export const Message = styled.text`
+    font-size: ${theme.FONT_SIZE.XL};
+    color: ${theme.COLORS.BLACK};
+    font-weight: 400;
 `
 export const Table = styled.table`
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 0.5rem;
+    padding-top: 1.5rem;
 
 `
 
 export const TBody = styled.tbody`
-    color: black;
+    
 `
 
 export const Tr = styled.tr`
-color: black;`
-
-export const Td = styled.td`
-    padding: 1.25rem 2rem;
-    background-color: ${theme.COLORS.VERY_LIGHT_GRAY};
-
+    
+`
+export const Th = styled.th`
+    font-weight: 100;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
+    border-top:1px solid ${theme.COLORS.VERY_LIGHT_GRAY} ;
+    background-color: #f2f2f2;
     &:first-child{
         border-top-left-radius: 6px;
         border-bottom-left-radius: 6px;
+        border-left: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
     }
     &:last-child{
         border-top-right-radius: 6px;
         border-bottom-right-radius: 6px;
+        border-right: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
+    }
+    `
+
+
+
+
+export const Td = styled.td`
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
+    border-top:1px solid ${theme.COLORS.VERY_LIGHT_GRAY} ;
+    background-color: ${theme.COLORS.WHITE};
+    
+
+    &:first-child{
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        border-left: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
+    }
+    &:last-child{
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-right: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
     }
 `
 
 
 export const THead = styled.thead`
-color: black;`
+    color: ${theme.COLORS.GRAY};
+    text-align: left;
+
+`
 
 
 interface ValueHighLightProps {

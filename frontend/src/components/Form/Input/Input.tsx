@@ -2,17 +2,17 @@ import { InputContainer, Label, InputStyle } from "./styles";
 
 interface Props {
   label?: string;
-  name: string;
+  id: string;
   type: string;
   required: boolean;
   placeholder?: string;
   value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
   label,
-  name,
+  id,
   placeholder,
   type,
   required,
@@ -21,9 +21,9 @@ export const Input = ({
 }: Props) => {
   return (
     <InputContainer>
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={id}>{label}</Label>
       <InputStyle
-        name={name}
+        id={id}
         type={type}
         placeholder={placeholder}
         required={required}
