@@ -14,7 +14,7 @@ import { Button } from "../Form/Button/Button";
 import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
 import { IoIosClose } from "react-icons/io";
 
-export const Modal = () => {
+export const Modal = ({ submit }: { submit: () => void }) => {
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
   const [typeSelect, setTypeSelect] = useState<"Crédito" | "Débito">("Crédito");
@@ -51,9 +51,10 @@ export const Modal = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    handleNewEntry(date, description, value, type);
+    await handleNewEntry(date, description, value, type);
     resetForm();
     setOpen(false);
+    submit();
   };
   return (
     <>

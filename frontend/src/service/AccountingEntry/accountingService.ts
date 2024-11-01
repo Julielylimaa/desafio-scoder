@@ -53,8 +53,7 @@ export const handleNewEntry = async (date: string, description: string, value: n
                 if (resp.status === 401) {
                     return false
                 }
-                console.log(resp.data);
-                alert("Novo registro cadastrado!")
+
             });
     } catch (err) {
         alert("Ocorreu um erro!")

@@ -15,7 +15,7 @@ export const Register = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    handleRegister(name, email, password);
+    await handleRegister(name, email, password);
     navigate("/");
   };
   return (

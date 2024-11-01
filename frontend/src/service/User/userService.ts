@@ -25,8 +25,6 @@ export const handleRegister = async (name: string, email: string, password: stri
                 password,
             })
             .then((resp) => {
-                console.log(resp.data);
-                alert("Usuário cadastrado!")
                 localStorage.setItem("token", resp.data.token);
             });
     } catch (err) {

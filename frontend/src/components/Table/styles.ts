@@ -37,8 +37,8 @@ export const MessageContainer = styled.div`
     padding: 3rem;
 `
 export const Message = styled.text`
-    font-size: ${theme.FONT_SIZE.XL};
-    color: ${theme.COLORS.BLACK};
+    font-size: ${theme.FONT_SIZE.LG};
+    color: ${theme.COLORS.LIGHT_GRAY};
     font-weight: 400;
 `
 export const Table = styled.table`

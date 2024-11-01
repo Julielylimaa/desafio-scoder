@@ -20,6 +20,7 @@ import { Pagination } from "../Pagination/Pagination";
 import { TotalBox } from "../TotalBox/TotalBox";
 
 import { Modal } from "../AddRecordModal/Modal";
+import { useNavigate } from "react-router";
 
 type Entries = {
   id: string;
@@ -59,31 +60,36 @@ export const RecordsTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
+  const navigate = useNavigate();
 
   const date = `${monthIndex + 1}- ${year}`;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const accountingRecords = await getAccountingRecords(
-          date,
-          currentPage,
-          pageSize
-        );
-        if (accountingRecords) {
-          const { entries, totalCredit, totalDebit, totalEntries } =
-            accountingRecords;
-          setTotalEntries(totalEntries);
-          setEntries(entries);
-          setTotalCredit(totalCredit);
-          setTotalDebit(totalDebit);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+  const fetchData = async () => {
+    try {
+      const accountingRecords = await getAccountingRecords(
+        date,
+        currentPage,
+        pageSize
+      );
+      if (!accountingRecords) {
+        navigate("/");
       }
-    };
+      if (accountingRecords) {
+        const { entries, totalCredit, totalDebit, totalEntries } =
+          accountingRecords;
+        setTotalEntries(totalEntries);
+        setEntries(entries);
+        setTotalCredit(totalCredit);
+        setTotalDebit(totalDebit);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
-  }, [date, month, year, currentPage]);
+  }, [month, year, currentPage]);
 
   return (
     <Container>
@@ -120,7 +126,7 @@ export const RecordsTable = () => {
             ))}
           </DateSelect>
         </SelectDateContainer>
-        <Modal />
+        <Modal submit={fetchData} />
       </DateBtnContainer>
 
       {entries.length === 0 ? (
