@@ -11,7 +11,6 @@ export const SelectDateContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 1rem;
     margin-bottom: 1rem;
 `
 export const Table = styled.table`

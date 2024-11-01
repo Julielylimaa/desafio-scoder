@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Container, MonthYearInput, Label } from "./styles";
 
 interface Props {
-  label: string;
+  label?: string;
   id: string;
   month?: string;
   year?: number;

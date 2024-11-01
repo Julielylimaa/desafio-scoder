@@ -4,7 +4,7 @@ import theme from "../../styles/theme";
 export const Container = styled.div`
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
 `
 export const Label = styled.label`
@@ -14,9 +14,10 @@ export const Label = styled.label`
 `
 export const MonthYearInput = styled.select`
     padding: 8px;
-    border: 1px solid ${theme.COLORS.LIGHT_GRAY};
+    border: 1px solid ${theme.COLORS.GREEN};
     border-radius: 4px;
     width: 100px;
+    color: ${theme.COLORS.GREEN};
 
   &:focus {
     outline: none;

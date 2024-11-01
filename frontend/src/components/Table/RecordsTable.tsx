@@ -10,6 +10,7 @@ import {
   ValueHighLight,
 } from "./styles";
 import { getAccountingRecords } from "../../service/AccountingEntry/accountingService";
+import { Pagination } from "../Pagination/Pagination";
 
 type Entries = {
   id: string;
@@ -45,21 +46,26 @@ export const RecordsTable = () => {
   const [entries, setEntries] = useState<Entries[]>([]);
   const [totalCredit, setTotalCredit] = useState<number>();
   const [totalDebit, setTotalDebit] = useState<number>();
+  const [totalEntries, setTotalEntries] = useState<number>();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
 
   useEffect(() => {
     const date = `${monthIndex + 1}- ${year}`;
-    const page = 1;
-    const pageSize = 10;
+
     console.log(date);
     const fetchData = async () => {
       try {
         const accountingRecords = await getAccountingRecords(
           date,
-          page,
+          currentPage,
           pageSize
         );
         if (accountingRecords) {
-          const { entries, totalCredit, totalDebit } = accountingRecords;
+          const { entries, totalCredit, totalDebit, totalEntries } =
+            accountingRecords;
+          setTotalEntries(totalEntries);
           setEntries(entries);
           setTotalCredit(totalCredit);
           setTotalDebit(totalDebit);
@@ -70,13 +76,12 @@ export const RecordsTable = () => {
       }
     };
     fetchData();
-  }, [month, monthIndex, year]);
+  }, [month, monthIndex, year, currentPage]);
 
   return (
     <Container>
       <SelectDateContainer>
         <DateInputComponent
-          label="mês"
           id="month"
           month={month}
           onChange={(e) => {
@@ -91,7 +96,6 @@ export const RecordsTable = () => {
           ))}
         </DateInputComponent>
         <DateInputComponent
-          label="ano"
           id="year"
           year={year}
           onChange={(e) => setYear(Number(e.target.value))}
@@ -120,6 +124,12 @@ export const RecordsTable = () => {
           ))}
         </TBody>
       </Table>
+      <Pagination
+        totalItems={totalEntries || 0}
+        itemsPerPage={pageSize}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </Container>
   );
 };

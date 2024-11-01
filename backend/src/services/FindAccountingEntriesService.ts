@@ -2,10 +2,7 @@ import { prisma } from "../../prisma/prismaClient";
 
 export class FindAccountingEntries {
     async execute(id: string, date: string, page: number, pageSize: number) {
-        console.log("date: ", date)
-        console.log(pageSize)
         const [month, year] = date.toString().split('-').map(Number)
-        console.log("mes e ano: ", month, year)
 
         const skip = (page - 1) * pageSize
 
@@ -24,6 +21,18 @@ export class FindAccountingEntries {
                 value: true,
             }
         })
+
+        const totalEntriesCount = await prisma.accountingEntry.count({
+            where: {
+                userId: {
+                    equals: id
+                },
+                date: {
+                    gte: new Date(year, month - 1, 1), // Início do mês
+                    lt: new Date(year, month, 1) // Início do próximo mês (exclusivo)
+                }
+            }
+        });
 
         const totalCreditValue = groupEntriesByType.find(group => group.type === 'Credit')?._sum.value || 0
         const totalDebitValue = groupEntriesByType.find(group => group.type === 'Debit')?._sum.value || 0
@@ -47,6 +56,6 @@ export class FindAccountingEntries {
 
 
 
-        return { entries, totalCreditValue, totalDebitValue }
+        return { entries, totalCreditValue, totalDebitValue, totalEntriesCount }
     }
 }
