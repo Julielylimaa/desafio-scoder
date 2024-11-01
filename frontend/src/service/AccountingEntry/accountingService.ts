@@ -27,6 +27,7 @@ export const getAccountingRecords = async (date: string,
                 pageSize
             }
         })
+
         const entries: Entries[] = resp.data.entries
         const totalCredit: number = resp.data.totalCreditValue
         const totalDebit: number = resp.data.totalDebitValue
@@ -49,6 +50,9 @@ export const handleNewEntry = async (date: string, description: string, value: n
                 type,
             })
             .then((resp) => {
+                if (resp.status === 401) {
+                    return false
+                }
                 console.log(resp.data);
                 alert("Novo registro cadastrado!")
             });

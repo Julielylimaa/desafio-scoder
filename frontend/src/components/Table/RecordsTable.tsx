@@ -46,9 +46,10 @@ const months = [
 ];
 export const RecordsTable = () => {
   const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
 
-  const [monthIndex, setMonthIndex] = useState(0);
-  const [month, setMonth] = useState(months[0]);
+  const [monthIndex, setMonthIndex] = useState(currentMonth);
+  const [month, setMonth] = useState(months[currentMonth]);
   const [year, setYear] = useState(currentYear);
 
   const [entries, setEntries] = useState<Entries[]>([]);
@@ -59,10 +60,9 @@ export const RecordsTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
-  useEffect(() => {
-    const date = `${monthIndex + 1}- ${year}`;
+  const date = `${monthIndex + 1}- ${year}`;
 
-    console.log(date);
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const accountingRecords = await getAccountingRecords(
@@ -83,7 +83,7 @@ export const RecordsTable = () => {
       }
     };
     fetchData();
-  }, [month, monthIndex, year, currentPage]);
+  }, [date, month, year, currentPage]);
 
   return (
     <Container>
@@ -120,7 +120,7 @@ export const RecordsTable = () => {
             ))}
           </DateSelect>
         </SelectDateContainer>
-        <Modal></Modal>
+        <Modal />
       </DateBtnContainer>
 
       {entries.length === 0 ? (

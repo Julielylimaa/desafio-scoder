@@ -17,6 +17,16 @@ export const AddButton = styled.button`
     }
 `
 
+export const CloseButton = styled(Dialog.Close)`
+  position: absolute;
+  background: transparent;
+  border: 0;
+  top: 1.5rem;
+  right: 1.5rem;
+  line-height: 0;
+  cursor: pointer;
+`
+
 export const Content = styled(Dialog.Content)`
     background-color: white;
     width: 40%;

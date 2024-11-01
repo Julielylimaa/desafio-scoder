@@ -16,6 +16,7 @@ export const Register = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     handleRegister(name, email, password);
+    navigate("/");
   };
   return (
     <Container>
@@ -49,6 +50,7 @@ export const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Input>
+
           <Button text="Cadastrar" />
 
           <Text>

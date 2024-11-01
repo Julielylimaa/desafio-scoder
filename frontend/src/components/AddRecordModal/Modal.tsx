@@ -1,6 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   AddButton,
+  CloseButton,
   Content,
   Form,
   Label,
@@ -12,6 +13,7 @@ import { FormEvent, useState } from "react";
 import { Button } from "../Form/Button/Button";
 import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
 import { IoIosClose } from "react-icons/io";
+
 export const Modal = () => {
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
@@ -19,6 +21,7 @@ export const Modal = () => {
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<"Credit" | "Debit">("Credit");
+  const [open, setOpen] = useState(false);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedType = event.target.value as "Crédito" | "Débito";
@@ -50,12 +53,13 @@ export const Modal = () => {
     event.preventDefault();
     handleNewEntry(date, description, value, type);
     resetForm();
+    setOpen(false);
   };
   return (
     <>
-      <Dialog.Root>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
-          <AddButton>+ Novo Registro</AddButton>
+          <AddButton onClick={() => setOpen(true)}>+ Novo Registro</AddButton>
         </Dialog.Trigger>
 
         <Dialog.Portal>
@@ -71,9 +75,9 @@ export const Modal = () => {
               Nova transação
             </Dialog.Title>
 
-            <Dialog.Close>
-              <IoIosClose />
-            </Dialog.Close>
+            <CloseButton>
+              <IoIosClose size={30} />
+            </CloseButton>
 
             <Form onSubmit={handleSubmit}>
               <Input
