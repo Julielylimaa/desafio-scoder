@@ -11,7 +11,7 @@ import { Input } from "../Form/Input/Input";
 import { FormEvent, useState } from "react";
 import { Button } from "../Form/Button/Button";
 import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
-
+import { IoIosClose } from "react-icons/io";
 export const Modal = () => {
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
@@ -70,6 +70,10 @@ export const Modal = () => {
             <Dialog.Title style={{ textAlign: "center" }}>
               Nova transação
             </Dialog.Title>
+
+            <Dialog.Close>
+              <IoIosClose />
+            </Dialog.Close>
 
             <Form onSubmit={handleSubmit}>
               <Input
