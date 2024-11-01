@@ -3,6 +3,16 @@
 - **Back-end**: Node.js, Express e Prisma ORM.
 - **Front-end**: React.
 
+# Descrição do projeto
+
+Este projeto foi desenvolvido para uma **empresa de contabilidade** e tem como principal objetivo gerenciar lançamentos de transações financeiras de **crédito e débito**.
+
+### Funcionalidades Principais
+
+- **Lançamento de Transações**: Permite registrar transações financeiras classificadas como crédito ou débito.
+- **Cálculo de Totais**: Exibe o total de créditos e o total de débitos para fácil acompanhamento.
+- **Organização por Mês e Ano**: Fornece uma lista das transações ordenada pelo mês e ano, facilitando a visualização e análise dos dados financeiros ao longo do tempo.
+
 ## Requisitos
 
 Certifique-se de ter as seguintes ferramentas instaladas:
