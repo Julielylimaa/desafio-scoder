@@ -7,8 +7,8 @@
 
 Certifique-se de ter as seguintes ferramentas instaladas:
 
-- **Node.js** (v16 ou superior)
-- **Docker** (opcional, para o banco de dados e ambiente)
+- **Node.js**
+- **Docker**
 
 ## Instruções de Instalação
 
