@@ -3,7 +3,7 @@ import loginImage from "../../images/login.jpeg";
 import { Container, Forms, ImageContainer } from "./styles";
 
 interface BoxProps {
-  children?: ReactNode; // Certifique-se de usar ReactNode
+  children?: ReactNode; 
 }
 export const ImageBox = ({ children }: BoxProps) => {
   return (
