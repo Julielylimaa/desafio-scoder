@@ -66,9 +66,10 @@ Certifique-se de ter as seguintes ferramentas instaladas:
    npm install
    ```
 3. **Crie um arquivo .env**
+   
    Crie um arquivo .env na pasta do front-end com a url da api. Veja o arquivo .env-example para referência.
    
-4. **Inicie o front-end em modo de desenvolvimento:**
+5. **Inicie o front-end em modo de desenvolvimento:**
    ```bash
    npm run dev
    ```
